@@ -1,9 +1,9 @@
 body {
-    font: 20px "Gill Sans", Verdana, sans-serif;
+    font: 30px "Verdana", Verdana, sans-serif;;
     line-height: 1.8;
-    color: #000000;
+    color: darkgoldenrod ;#000000;
     background-color: #dcdcdc;
-    padding-top: 0px !important;
+    padding-top: 20px !important;
   }
 
 .textcontainer {
@@ -91,7 +91,7 @@ nav {
 code {
   background-color: #2d2b33;
   color: #EEE7E8;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Tahoma', Tahoma, sans-serif;
 }
 
 .caption {
