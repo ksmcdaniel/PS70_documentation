@@ -1,69 +1,325 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Week 1: Final Project Proposal</title>
 
-<title>PS70: Intro to Digital Fabrication </title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="../style.css" rel="stylesheet">
+  <style>
+    /* Button style */
+    .my-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: inline-block;
+      padding: 10px 20px;
+      background: grey;
+      color: whitesmoke;
+      border-radius: 100px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s ease, transform 0.3s ease;
+      font-size: 14px;
+    }
+
+    .my-btn:hover {
+      background: #ddd;
+      color: black;
+      transform: scale(1.05);
+    }
+
+    /* Card container */
+    .card-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      padding: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+      font-family: Helvetica, Arial, sans-serif;
+    }
+
+    /* Individual card */
+    .card {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 25px;
+      width: 100%;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    }
+
+    .card h4 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 1.25rem;
+      color: darkcyan;
+    }
+
+    .card p {
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    .image-block {
+      font-family: Helvetica, Arial, sans-serif;
+    }
+
+    .img-box {
+      position: relative;
+      display: inline-block;
+      line-height: 0;
+      border-radius: 8px;
+      overflow: visible;
+    }
+
+    .img-box img {
+      display: block;
+      border-radius: 6px;
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* overlay */
+    .overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* red X lines */
+    .x-line {
+      position: absolute;
+      width: calc(100% + 80px);
+      height: 12px;
+      background: rgba(220, 38, 38, 0.95);
+      top: 50%;
+      left: 50%;
+      transform-origin: center;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+      border-radius: 6px;
+    }
+
+    .x-line.line1 { transform: translate(-50%, -50%) rotate(45deg); }
+    .x-line.line2 { transform: translate(-50%, -50%) rotate(-45deg); }
+
+    /* overlay text */
+    .overlay-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: Helvetica, Arial, sans-serif;
+      font-weight: bold;
+      letter-spacing: 2px;
+      color: white;
+      font-size: clamp(18px, 3.5vw, 36px);
+      text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+      padding: 8px 14px;
+      background: rgba(0,0,0,0.45);
+      border-radius: 6px;
+      pointer-events: none;
+    }
+
+    .overlay.show {
+      display: flex;
+    }
+
+    /* mark button */
+    .mark-btn {
+      background: #c62828;
+      color: #fff;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-family: Helvetica, Arial, sans-serif;
+    }
+
+    .mark-btn[aria-pressed="true"] { background: #7f1d1d; }
+    .mark-btn:focus {
+      outline: 3px solid rgba(194,24,91,0.18);
+      outline-offset: 2px;
+    }
+
+     /* Hero section */
+    .hero {
+      height: 50vh;
+      background: url('../engdesign.jpg') no-repeat center center/cover;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .hero-text {
+      position: relative;
+      z-index: 1;
+      font-size: 3rem;
+      text-shadow: 0 0 10px rgba(0,0,0,0.7);
+    }
 
 
-<nav class="navbar navbar-expand-sm navbar-dark" style=" color: #EEE7E8;">
-  <div style="align-items: center; justify-content: center;" class="container-fluid">
-    <div class="flexrow">
-      <h2 class="nav-title">PS70 Fall 2025</h2>
-    </div>
-    <div class="navbar-nav">
-      <h4><a class="nav-link" href="../index.html">Home</a></h4>
-      <h4><a class="nav-link" href="../about.html">About</a></h4>
-    </div>
-  </div>
-</nav>
+    .fade-in-text { opacity: 0; transition: opacity 1s ease-in-out; }
+    .fade-in-text.active { opacity: 1; }
+
+  </style>
+</head>
 
 <body>
-<xmp style="display:none;">
-<div class="textcontainer">
-<br></br>
+  <div>
+    <a href="../index.html" class="my-btn">Return Home</a>
+  </div>
 
-<h2>Week 1: Final Project Proposal</h2>
+  <div class="hero">
+    <div class="hero-text fade-in-text" id="welcome-text">
+    <h2>Week 1: Final Project Proposal</h2>
+    </div>
+  </div>
 
-<img src="moon.jpg" alt="moon" style="width:500px;height:200px;">
+  <script>
+    window.addEventListener("load", function() {
+      document.getElementById("welcome-text").classList.add("active");
+    });
+  </script>
 
-<a href="https://www.w3schools.com/html/html_images.asp">"Visit our homepage"</a>
+  <div class="card-container">
+    <div class="card">
+      <!-- <p> <div class="card-container">
+      <div class="card"> -->
+        <h4>Idea 1: Backpack that Transforms into a Smart Chair</h4>
+        <p style="margin-bottom: 20px">I am a lazy bum. I often find myself getting tired while waiting at a bus stop, standing outside talking to friends, or in another everday situation where I really wish I had a chair. To make matters worse, I often have my backpack weighing me down. My idea is to turn the burden of a backpack into the relief of a chair, thus enabling my lazy tendancies further. I want to create a lightweight chair design that folds into my backpack and potentially integrates some components like a portable charger, a speaker, or a water bottle holder.</p>
 
-<video width = "100%" controls>
-  <source src="../temp-video.mp4" type="video/mp4">
-</video>
+        <div class="image-block">
+          <p>Contender #1 from GCI Outdoor:</p>
 
-<p class = "margin"></p>
-<p style="color: darkcyan;">Here are 3 ideas for my final project.</p>
-<p class = "margin"></p>
+          <div class="img-box" aria-live="polite">
+            <img id="contenderImg" src="../backpack chair.webp" alt="backpack chair" height="400" width="250">
+            <div class="overlay" id="overlay" aria-hidden="true">
+              <span class="x-line line1"></span>
+              <span class="x-line line2"></span>
+              <div class="overlay-text">LAME</div>
+            </div>
+          </div>
 
-<h4>Idea 1 : [INSERT IDEA 1]</h4>
-<p class = "margin"></p>
+          <div style="margin-top:12px;">
+            <button id="markBtn" class="mark-btn" aria-pressed="false">Reveal the truth</button>
+          </div>
+        </div>
+        <p style="margin-top: 20px">First off, I don't want to look like I am wearing a chair on my back. That is not cool. I am looking for something functional — something that wouldn't look too weird if I took it to class. <strong>Best case scenario: people don't even notice that anything is up with this backpack until I am aura-farming in front of them in my fold-out chair.</strong></p> 
 
-Idea 1 description
+        <p style="margin-top: 20px">Contender #2 from Woosir: </p>
+          <img src="../Woosir-chair.webp" alt="woosir chair">
 
-<p class = "margin"></p>
+           <p style="margin-top: 20px; margin-bottom: 100px; font: Helvetica; font-size: 50px"> Looks good, right... </p>
+
+           <img src="../pricy.png" alt="woosir chair">
+
+          <p style="margin-top: 20px; font: Helvetica"> I need something affordable so I'll start with a regular backpack and retrofit it to add the chair. My folding mechanism can be a scissor hinge with two pairs of links across a center pivot. This will allow the chair to be space efficient and able to be stored in a compartment behind the backpack. The fabric seat will be 45 cm wide, 30 cm deep, and 44 cm off the ground. If the fabric is 5cm thick then the scissor links should each be ~28.25 cm in length, with two attached together across the pivot point. The top part of the backpack will act as a seat rest with a reinforced panel to accept more load. </p>
+
+          <p style="margin-top: 20px"> Linear actuators with a stroke of ~30cm could be integrated to electronically deploy the seat. One end of the actuator could be mounted on the backpack lower base plate, with the other end on the scissor center right near the pivot. Possible locking mechanisms for the links could be adding spring-loaded steel locking pin that engages when the links are fully opened. Another idea is placing a latch between the two sets of bottom links to hold them in place when fully extended. </p>
+
+          <p style="margin-top: 20px"> The folding chair could be integrated with ESP32s, which would enable remote deployment. I would need to develop a method of sensing when the chair links are fully extended so the ESP32s can send the signal to stop the actuators. </p>
+
+          <img src="../backpack_real.jpg" 50px alt="backpack chair" style="width: 700px; height: 720px">
+
+          <p style="margin-top: 20px"> <strong> Potential Issues: </strong>
+            <ul>
+          <li>The actuators will have to provide ~3,000N of force, which requires a lot of power. ChatGPT recommended a 6S Li-ion battery (~22V) </li>
+          <p style="margin-top: 10px"><li> If the actuator has an integrated DC motor, I will need an H-bridge driver rated to ~60A, which will require robust MOSFETs and a proper heat sink. Given the high currents being drawn, I should add a circuit breaker. </li></p>
+           </p>
+         </ul>
+
+           <p style="margin-top: 20px"> <strong> Other features: </p></strong>
+           <p> I could also consider adding a footrest, water bottle holder, charging port, and umbrella holder on my backpack. </p>
 
 
-<h4>Idea 2: [INSERT IDEA 2]</h4>
-<p class = "margin"></p>
-
-Idea 2 Description
-
-<p class = "margin"></p>
-
-<h4>Idea 3: [INSERT IDEA 3]</h4>
-<p class = "margin"></p>
-
-Idea 3 Description
+      </div>
 
 
+    <div class="card">
+      <h4>Idea 2: Snap-together Speakers for Sound Amplification</h4>
+      <p style="margin-top: 20px">As a college student, I listen to a lot of music but different settings can call for drastically different volumes. I am curious about the potential of using small modules that each have a driver and a tiny amplifier that could physically snap together and automatically sync their audio. Snapping four modules together will be enough for a party and after quiet hours set in (because I am a great neighbor) I could easily transition to a quieter single module. </p>
 
-</div>
-</xmp>
+      <p style="margin-top: 20px">There would have to be a core module to handle bluetooth input and supply the battery. A handful of satellite modules could be snapped together with the core module to amplify the audio signal. The cubes could have neodymium magnets for alignment and be connected by pogo pins to share audio signals. </p>
+
+      <p style="margin-top: 20px; margin-bottom: 20px"> Additional features to add on could include LED rings around each speaker module that respond when the modules snap in and also respond to the music. Another idea is to add a designated bass cube with a subwoofer for low end sounds. </p>
+
+      <img src="../Audio.jpg" style="width:800px; height: 400px">
+
+      <p style="margin-top: 20px"> <strong> Potential Issues: </strong>
+            <ul>
+          <li>Might be tricky to secure a reliable electrical connection between modules. The pogo pins should help with this. </li>
+          <p style="margin-top: 10px"><li>Modules in the center might have muted sound because it is being blocked by the surrounding modules. </li></p>
+           </p>
+         </ul>
+    </div>
+
+    <div class="card">
+      <h4>Idea 3: Mean Snack Dispenser</h4>
+      <p style="margin-top: 20px">During freshman and sophomore year, whenever I felt like taking a cheat day, my roommate was always there to shame me about it. One time, he even slapped a HUDS brownie out of my hands… Now he’s taking a gap semester and I have nobody to stop me from testing the limits of human dessert consumption. So my plan is to replace my roommate with a robot. </p>
+
+      <p style="margin-top: 20px">I will lay out a variety of healthy (baby carrots, peas, yuck, etc.) and unhealthy (reeses, Hershey’s kisses, Haribo gummy bears) snacks in different trays. The trays will have pressure sensors beneath them so that the dispenser can tell which snack I picked up. There will be a robotic arm on the dispenser that can slap the unhealthy snacks out of my hand. If I pick up a healthy snack, the robotic arm won’t do anything. The robotic arm will need to be on a horizontal track so that it can move back and forth so it is ready to slap me if I choose unwisely. Depending on which snack I pick up, an LCD screen will display a mean or kind message. </p>
+
+      <p style="margin-top: 20px; margin-bottom: 20px">I could also integrate a speaker/buzzer to play shameful sound effects when I pick up bad snacks. And LED strip could glow green for healthy and red for unhealthy.</p>
+
+      <img src="../Snacks.jpg" style="width:600px; height: 400px">
+
+      <p style="margin-top: 20px"><strong>Further details:</strong></p> 
+      <ul>
+      <li>I could make a mold of the hand and then cast it out of silicone.</li> 
+      <li>The pressure sensors can be similar to Bobby’s anti-procrastination phone box project.</li>
+      <li>The pressure sensors can be wirelessly connected to the LCD screen and LED strips via an ESP32.</li>
+    </ul>
+</p>
+    </div>
+  </div>
+</p>
+
+    
+
+  <!-- Script moved to end so DOM is ready -->
+  <script>
+    const btn = document.getElementById('markBtn');
+    const overlay = document.getElementById('overlay');
+
+    function setOverlay(show) {
+      if (show) {
+        overlay.classList.add('show');
+        overlay.setAttribute('aria-hidden', 'false');
+        btn.setAttribute('aria-pressed', 'true');
+        btn.textContent = 'Unreveal the truth';
+      } else {
+        overlay.classList.remove('show');
+        overlay.setAttribute('aria-hidden', 'true');
+        btn.setAttribute('aria-pressed', 'false');
+        btn.textContent = 'Reveal the truth';
+      }
+    }
+
+    btn.addEventListener('click', () => {
+      const isOn = btn.getAttribute('aria-pressed') === 'true';
+      setOverlay(!isOn);
+    });
+
+    setOverlay(false);
+  </script>
 </body>
+</html>
 
-<script src="../strapdown.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
-
+ 
+</body>
 </html>

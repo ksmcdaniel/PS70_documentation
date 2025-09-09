@@ -1,19 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<head>
 <title>PS70: Intro to Digital Fabrication </title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="./style.css" rel="stylesheet">
 
+<style>
+  /* Change background color of the navbar */
+.custom-navbar {
+  background-color: #100080; /* deep blue */
+  max-height: 500px;
+}
 
-<nav class="navbar navbar-expand-sm navbar-dark" style=" color: #EEE7E8;">
+/* Change text color and font */
+.custom-navbar .nav-title,
+.custom-navbar .nav-link {
+  color: whitesmoke;             /* change text color */
+  font-family: "Verdana", sans-serif; /* change font */
+}
+
+/* Optional: hover effect for links */
+.custom-navbar .nav-link:hover {
+  color: #ffd700; /* gold on hover */
+}
+    
+    /* Card grid */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+      padding: 10px;
+    }
+
+    .card {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: 350px; /* force all cards to same height */
+      /*width: 400px;*/
+    }
+
+    .card img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border-radius: 20px;
+      object-fit: cover; 
+    }
+
+      .about-container {
+    display: flex;
+    align-items: center;     /* vertically center text & image */
+    justify-content: space-between;
+    gap: 20px;               /* space between text and image */
+    padding: 20px;
+  }
+
+  #aboutme {
+    text-align: left;        /* left align text */
+    flex: 1;                 /* take available space */
+    font-family: Verdana, sans-serif;
+    font-size: 30px;
+    line-height: 1.5;
+  }
+
+  .about-container img {
+    max-width: 300px;        /* limit image size */
+    height: auto;
+    border-radius: 12px;     /* optional rounded corners */
+  }
+
+  .card-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.6); /* semi-transparent background */
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    text-align: center;
+    opacity: 0;                /* hidden by default */
+    transition: opacity 0.3s ease;
+  }
+
+  .card:hover .card-caption {
+    opacity: 1;                /* fade in on hover */
+  }
+
+    .race-photo {
+    position: relative;
+    flex: 1;                   /* smaller than text */
+    max-width: 300px;          /* set custom width */
+  }
+
+  .race-photo img {
+    width: 100%;
+    height: auto;              /* keep proportions */
+    border-radius: 12px;
+    display: block;
+  }
+
+  /* caption for race photo */
+  .race-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    padding: 4px;
+    font-size: 14px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .race-photo:hover .race-caption {
+    opacity: 1;
+  }
+
+   /* Button style */
+    .btn {
+      position: fixed;
+      top: 20px;       /* distance from the top */
+      right: 20px;     /* distance from the right */
+      display: inline-block;
+      padding: 10px 20px;
+      background: white;
+      color: black;
+      border-radius: 100px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+
+    .btn:hover {
+      background: #ddd;
+      transform: scale(1.05);
+    }
+
+     .media-row {
+    display: flex;
+    align-items: flex-start;   /* align top edges */
+    gap: 20px;                 /* space between image & video */
+    margin: 20px 0;
+  }
+
+  .media-row img {
+    width: 200px;              /* make image smaller */
+    height: auto;
+    border-radius: 8px;
+  }
+
+  .video-container {
+    flex: 1;                   /* video takes remaining space */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .video-container video {
+    width: 100%;               /* video fills container */
+    max-width: 600px;          /* but not too wide */
+    border-radius: 8px;
+  }
+
+  .video-caption {
+    margin-top: 8px;
+    font-size: 14px;
+    font-family: Verdana, sans-serif;
+    text-align: center;
+    color: #333;
+  }
+
+</style>
+</head>
+
+<nav class="navbar navbar-expand-sm navbar-dark custom-navbar">
   <div style="align-items: center; justify-content: center;" class="container-fluid">
     <div class="flexrow">
-      <h2 class="nav-title">PS70 Fall 2024</h2>
+      <h1 class="nav-title">About Me</h1>
     </div>
     <div class="navbar-nav">
-      <h4><a class="nav-link" href="./index.html">Home</a></h4>
-      <h4><a class="nav-link" href="./about.html">About</a></h4>
     </div>
   </div>
 </nav>
@@ -22,32 +194,68 @@
 <xmp style="display:none;">
 <div class="textcontainer">
 
+<div class="card-grid">
+    <div class="card">
+      <img src="microfluidics.png" alt="hiking">
+      <div class="card-caption">A microfluidic chip I made last summer to trap HUVECs cells in oil bubbles.</div>
+    </div>
+    <div class="card">
+      <img src="IMG_3758.jpg" alt="Week 2">
+      <div class="card-caption">A selfie at the summit of the Pacaya volcano in Guatemala.</div>
+    </div>
+    <div class="card">
+      <img src="IMG_4895.jpg" alt="holi">
+      <div class="card-caption">Me big-backing in Miami.</div>
+    </div>
+  </div>
 
-
-<h3>About Me</h3>
-
-<p class="margin">   </p>
-<div class="center-row">
-  <img src="./about-me-placeholder.jpg" alt="placeholder for you about me image">
+<div class="about-container">
   <p id="aboutme">
-    This is an about me! Here you can talking about the dorm you live in, what year you are, and what are you interested in.
+    I am a Junior studying electrical engineering and living in Quincy house. I am interested in A LOT of different things: 1) creating point-of-care, affordable technologies for medical diagnosis; 2) finding new tools to study aging biology; and 3) inventing practical technologies for my dorm room (usually motivated by laziness). After college, my goal is to work on technologies that can improve the human healthspan. 
   </p>
+
+  <div class="race-photo">
+    <img src="race.png" alt="race">
+    <div class="race-caption">Me dying during the Boston Marathon in 2024.</div>
+  </div>
+
 </div>
-<br></br>
 
-Hello there is more text here, feel free to go into more detail about stuff you are interested in as well. As well as place more
-images if you are interested in those things
-<br></br>
-<img src="./generic-placeholder-image.jpg" alt="generic placeholder image">
+<div class="card-grid">
+    <div class="card">
+      <img src="IMG_6007.jpg" alt="Summer internship">
+      <div class="card-caption">Me with my dad (left) and the president of Guatemala (center).</div>
+    </div>
+    <div class="card">
+      <img src="IMG_9823.jpg" alt="Holi">
+      <div class="card-caption">Me celebrating Holi with my friends Milan and Joey.</div>
+    </div>
+    <div class="card">
+      <img src="IMG_4571.jpg" alt="San Fransico">
+      <div class="card-caption">A photo I shot of San Fransico.</div>
+    </div>
+  </div>
 
-<br></br>
-Maybe even add a video?
-<br></br>
 
-<video width="640" height="480" controls>
-  <source src="temp-video.mp4" type="video/mp4">
-</video>
+In my free time, I love camping, running with friends, and playing poker (though I'm not a very good bluffer). I am half Indian and half Irish but I have lived all around the world as part of a diplomatic family. I was born in India, then lived in Bolivia, Colombia, the U.S., Singapore, Canada, and Guatemala before Harvard. The photo on the left above is me with my dad (left) and the president of Guatemala (center), whom I got to meet during a summer working at the embassy in Guatemala. I really wish I had checked my hair before that photo :D ... 
 
+
+My goal for this semester is to build more stuff, here's what I've built so far: 
+
+
+I am also quite silly... 
+<div class="media-row">
+  <img src="IMG_5648.jpg" alt="tomfoolery">
+
+  <div class="video-container">
+    <video controls>
+      <source src="IMG_3797.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="video-caption">Here is a video of Coatis shot in Tikal National Park in Guatemala.</div>
+  </div>
+</div>
+<p> <a href="./index.html" class="btn">Return Home</a> <p>
 
 </div>
 </xmp>
