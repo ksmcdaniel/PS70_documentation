@@ -1,55 +1,321 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Week 2: 2D Design & Cutting</title>
 
-<title>PS70: Intro to Digital Fabrication </title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="../style.css" rel="stylesheet">
+  <style>
+    /* Hero section */
+    .hero {
+      height: 50vh;
+      background: url('lasercutting.jpg') no-repeat center center/cover;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .hero-text {
+      position: relative;
+      z-index: 1;
+      font-size: 3rem;
+      text-shadow: 0 0 10px rgba(0,0,0,0.7);
+    }
+
+    .fade-in-text { opacity: 0; transition: opacity 1s ease-in-out; }
+    .fade-in-text.active { opacity: 1; }
+
+     :root{
+      --card-bg: #ffffff;
+      --page-bg: #f3f4f6;
+      --accent: #2563eb;
+      --muted: #6b7280;
+      --shadow: 0 6px 22px rgba(15, 23, 42, 0.12);
+      --rounded: 12px;
+      --max-w: 900px;
+    }
+
+    html,body{
+      height: 100%;
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: var(--page-bg);
+      color: #0f172a;
+      -webkit-font-smoothing:antialiased;
+    }
+
+    .page-wrap{
+      min-height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 20px;
+      box-sizing: border-box;
+    }
+
+      .image-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px; /* space between images */
+      flex-wrap: wrap; /* allows wrapping on small screens */
+    }
+
+    .image-row img {
+      width: 400px;  /* set consistent size */
+      height: 300px; /* adjust to your desired ratio */
+      object-fit: cover; /* ensures images keep proportions and fill box */
+      border-radius: 10px; /* optional rounded corners */
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2); /* optional shadow */
+      margin-top: 10px;
+    }
+
+    .my-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: inline-block;
+      padding: 10px 20px;
+      background: grey;
+      color: whitesmoke;
+      border-radius: 100px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s ease, transform 0.3s ease;
+      font-size: 14px;
+      z-index: 10;
+    }
+
+    .my-btn:hover {
+      background: #ddd;
+      color: black;
+      transform: scale(1.05);
+    }
+
+    .card{
+      width: 100%;
+      max-width: var(--max-w);
+      background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(250,250,252,1) 100%);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow);
+      padding: 28px;
+      box-sizing: border-box;
+      border: 1px solid rgba(15,23,42,0.04);
+    }
+
+    .card-header{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .badge{
+      display:inline-grid;
+      place-items:center;
+      width:44px;
+      height:44px;
+      border-radius:10px;
+      background: linear-gradient(135deg,var(--accent),#7c3aed);
+      color: white;
+      font-weight: 700;
+      font-size: 18px;
+      box-shadow: 0 6px 18px rgba(37,99,235,0.18);
+    }
+
+    .title{
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.1;
+      letter-spacing: -0.2px;
+    }
+
+    .subtitle{
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+        .card-content{
+      margin-top: 22px;
+      display: block;
+    }
+
+    .card-content h2{
+      margin: 0 0 12px 0;
+      font-size: 18px;
+    }
+
+    .card-content p{
+      margin: 0 0 20px 0;
+      line-height: 1.65;
+      font-size: 16px;
+      color: #111827;
+    }
+
+  .card-content img,
+  .card-content video {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  .card-content iframe {
+    display: block;
+    margin: 0 auto;
+  }
+
+</style>
+
+    /* responsive */
+    @media (max-width:560px){
+      .card{ padding:20px; }
+      .badge{ width:40px; height:40px; font-size:16px; }
+      .title{ font-size:18px; }
+    }
 
 
-<nav class="navbar navbar-expand-sm navbar-dark" style=" color: #EEE7E8;">
-  <div style="align-items: center; justify-content: center;" class="container-fluid">
-    <div class="flexrow">
-      <h2 class="nav-title">PS70 Fall 2024</h2>
-    </div>
-    <div class="navbar-nav">
-      <h4><a class="nav-link" href="../index.html">Home</a></h4>
-      <h4><a class="nav-link" href="../about.html">About</a></h4>
-    </div>
-  </div>
-</nav>
+  </style>
+</head>
 
 <body>
-<xmp style="display:none;">
-<div class="textcontainer">
-<p class="margin">   </p>
+  <div>
+    <a href="../index.html" class="my-btn">Return Home</a>
+  </div>
 
-<h3>Week 2: 2D Design & Cutting</h3>
+  <div class="hero">
+    <div class="hero-text fade-in-text" id="welcome-text">
+      <h2>Week 2: 2D Design & Cutting</h2>
+    </div>
+  </div>
 
-<p class="margin">   </p>
-<div class="flexrow">
-  <a id="btn" href="./temp.zip" download>Test Download Button
-  </a>
-</div>
-<p class="margin">   </p>
+  <script>
+    window.addEventListener("load", function() {
+      document.getElementById("welcome-text").classList.add("active");
+    });
+  </script>
 
-<h4>Assignment 1: Make a Box</h4>
+ <div class="page-wrap">
+    <article class="card" role="article" aria-labelledby="assignment-title">
+      <header class="card-header">
+        <div class="badge">#1</div>
+        <div>
+          <h1 id="assignment-title" class="title">Assignment 1: Make a Box.</h1>
+          <p class="subtitle">Exploring kerf cuts and finger joints!</p>
+        </div>
+      </header>
+
+      <section class="card-content">
+        <h2>Project description</h2>
+        <p>
+          For this assignment, I wanted to deviate from the conventional box shape and add a distinctive curve on my box.
+          By cutting slots partway through a material like wood or cardboard, the resistance to bending is greatly reduced.
+          There were some great examples of kerf cut wood in the PS70 lab and I decided to experiment with cardboard.
+          I used a rectangular pattern to make a sketch of my kerf cut in Fusion 360 and added it to the score layer in Rhino.
+          This worked surprisingly well.
+        </p>
+
+        <h2>Closure & fit</h2>
+        <p>
+          My curved box lid had some elasticity to it and would not have stayed over the box if I didn't have some mechanism holding it in.
+          I laser cut a little slot in the wall of my box that would accept a tab on the box lid.
+          This worked well and allowed me to store the box in its closed position.
+          I also experimented with the number of fingers on my box and found that with seven fingers there was enough friction to hold the box together without hot glue but the fingers were still big enough to not break.
+        </p>
+
+        <h2>CAD design</h2>
+        <p>
+          I already had some experience with Fusion360, but learned a variety of new functions throughout this process. The rectangular pattern was particularly useful for making evenly-spaced copies of the fingers and for extending my kerf cut pattern across the lid of the box. I also got more experience CADing with parameters. 
+        </p>
+        <div style="text-align: center;">
+         <img src="cad_box.png" height="500" width="400" style="border: 5px solid black;" alt="CAD model of the box">
+        </div>
+
+        <h2>Final Product</h2>
+        <p>
+          After cutting off all of the fingers of my box on my first attempt... I got a working final product! I am happy with how it turned out. No superglue needed! 
+         <div class="image-row">
+          <img src="../box1.png" alt="Box 1">
+          <img src="../box2.png" alt="Box 2">
+          <img src="../box3.png" alt="Box 3">
+        </div>
+      </p>
+    </section>
+    </article>
+  </div>
+
+ <div class="page-wrap">
+      <article class="card" role="article" aria-labelledby="assignment-title">
+      <header class="card-header">
+        <div class="badge">#2</div>
+        <div>
+          <h1 id="assignment-title" class="title">Assignment 2: Fusion 360 Tutorial.</h1>
+          <p class="subtitle">Learning how to make revolute joints in Fusion 360!</p>
+        </div>
+      </header>
+
+      <section class="card-content">
+        <h2>CAD Tutorial</h2>
+        <p>
+          I always wanted to learn how to make hinges in CAD and figured this would be a good time to start! I followed an online tutorial by Daniele Palermo that went through how to make a revolute hinge joint. Below is a video of me testing it out! 
+        </p>
+        <video width="640" height="360" controls>
+        <source src="hinges_rec.mov" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+
+      <iframe src="https://college860.autodesk360.com/shares/public/SH90d2dQT28d5b602811e5a2a858980bac68?mode=embed" width="640" height="360" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" frameborder="0"></iframe>
+
+      <p style="margin-top: 20px;">I also experimented with user parameters, which made my life a lot easier later on when I wanted to go back and change the size of the hinges.</p>
+      <img src="parameters.png" width="640" alt="User parameters">
+    </section>
+    </article>
+  </div>
+  
+  <div class="page-wrap">
+      <article class="card" role="article" aria-labelledby="assignment-title">
+      <header class="card-header">
+        <div class="badge">#3</div>
+        <div>
+          <h1 id="assignment-title" class="title">Assignment 3: Modeling Everyday Objects.</h1>
+          <p class="subtitle">Improving my Fusion 360 skills!</p>
+        </div>
+      </header>
+
+      <section class="card-content">
+        <h2>T-slot Extrusion</h2>
+        <p>
+          I kept seeing these bars around the lab and decided to model one of them for this week's assignment. It was easy to get the basic sketch in a single place and then extrude outwards. I used mirrors to replicate the grooves in the center.I measured a T-slot extruder from the PS70 lab with calipers and came up with the Fusion sketch below.
+        </p>
+      <img src="sketch1.png" width="640" style="border: 5px solid black" alt="User parameters">
+
+      <iframe src="https://college860.autodesk360.com/shares/public/SH90d2dQT28d5b60281113a6c3752235bd6f?mode=embed" width="640" height="480" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"  frameborder="0"></iframe>
+
+    </section>
+    </article>
+  </div>
+
+  <p class="margin"></p>
+  <div class="flexrow">
+    <a id="btn" href="./temp.zip" download>Test Download Button</a>
+  </div>
+  <p class="margin"></p>
+
+  <h4>Assignment 2: Fusion 360 Tutorial</h4>
+  <h4>Assignment 3: Fusion Modeling</h4>
 
 
-
-<h4>Assignment 2: Fusion 360 Tutorial</h4>
-
-
-<h4>Assignment 3: Fusion Modeling</h4>
-
-
-
-
-
-</div>
-</xmp>
 </body>
-
-<script src="../strapdown.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
-
 </html>
