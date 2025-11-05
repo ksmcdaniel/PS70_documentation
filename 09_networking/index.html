@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Minimum Viable Product</title>
+  <title>Week 2: 2D Design & Cutting</title>
 
   <style>
     /* Hero section */
@@ -276,9 +276,10 @@
 
         </p>
 
-        <h2>Final Product</h2>
+        <h2>Initial Setup</h2>
         <p>
-          Here are pictures of my slider setup, the bins to hold snacks, and the ultrasonic sensor setup. 
+          I decided to iterate the camera slider piece with the laser cutter intially, since it is way faster than 3D printing. I used an eccentric nut to tighten the wooden slider piece appropriately, which really helped. Here are pictures of my slider setup, the bins to hold snacks, and the ultrasonic sensor setup. It didn't look pretty but it got the job done. 
+
          <div class="image-row">
           <img src="mvp1.png" alt="Box 1">
           <img src="mvp2.png" alt="Box 2">
@@ -286,19 +287,42 @@
         </div>
       </p>
 
-
       <div class="center-video-section">
         <video src="video1.mov" autoplay muted loop playsinline></video>
-        <div class="caption">The slider in motion.</div>
+        <div class="caption">In this initial test code, the stepper motor moves 80 steps in a set direction when the distance sensor reads more than 10 cm. The motor then stops.</div>
       </div>
 
       <div class="center-video-section">
         <video src="video3.mov" autoplay muted loop playsinline></video>
-        <div class="caption">The slider in motion again.</div>
+        <div class="caption">In this test code, the stepper motor moves 80 steps in a set direction when the tray is lifted, stops for 1 second, then keeps moving in that direction. After the tray is returned, the stepper reverses and the camera slider returns to its initial position.</div>
       </div>
 
 
+        <h2>MVP</h2>
+        <p>
+          I added set screws into the aluminum extrusion holder pieces on each side and 3D printed a new slider piece that I could attach a servo to. I then revisited C++ class structure to make seperate classes for the servo motor, stepper motor, and ultrasonic sensor. Multi-tasking these three components took me a lot of time and I still need to work more on it in the coming weeks. 
 
+         <div class="image-row">
+          <img src="mvp4.jpg" alt="Box 1">
+          <img src="mvp5.jpg" alt="Box 2">
+          <img src="mvp6.jpg" alt="Box 3">
+        </div>
+
+          <div class="image-row">
+          <img src="mvp7.jpg" alt="Box 1">
+          <img src="mvp8.jpg" alt="Box 2">
+        </div>
+      </p>
+
+      <div class="center-video-section">
+        <video src="mvp9.mov" autoplay muted loop playsinline></video>
+        <div class="caption">The slap robot responding to my hand.</div>
+      </div>
+
+      <div class="center-video-section">
+        <video src="mvp10.mov" autoplay muted loop playsinline></video>
+        <div class="caption">Another video of the slap robot responding to my hand.</div>
+      </div>
 
     </section>
     </article>
