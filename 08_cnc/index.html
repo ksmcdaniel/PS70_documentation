@@ -1,37 +1,312 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Week 8: CNC</title>
 
-<title>PS70: Intro to Digital Fabrication </title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="../style.css" rel="stylesheet">
+  <style>
+    /* Hero section */
+    .hero {
+      height: 50vh;
+      background: url('cncb.jpg') no-repeat center center/cover;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .hero-text {
+      position: relative;
+      z-index: 1;
+      font-size: 3rem;
+      text-shadow: 0 0 10px rgba(0,0,0,0.7);
+    }
+
+    .fade-in-text { opacity: 0; transition: opacity 1s ease-in-out; }
+    .fade-in-text.active { opacity: 1; }
+
+     :root{
+      --card-bg: #ffffff;
+      --page-bg: #f3f4f6;
+      --accent: #2563eb;
+      --muted: #6b7280;
+      --shadow: 0 6px 22px rgba(15, 23, 42, 0.12);
+      --rounded: 12px;
+      --max-w: 900px;
+    }
+
+    html,body{
+      height: 100%;
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: var(--page-bg);
+      color: #0f172a;
+      -webkit-font-smoothing:antialiased;
+    }
+
+    .page-wrap{
+      min-height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 20px;
+      box-sizing: border-box;
+    }
+
+      .image-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px; /* space between images */
+      flex-wrap: wrap; /* allows wrapping on small screens */
+    }
+
+    .image-row img {
+      width: 400px;  /* set consistent size */
+      height: 300px; /* adjust to your desired ratio */
+      object-fit: cover; /* ensures images keep proportions and fill box */
+      border-radius: 10px; /* optional rounded corners */
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2); /* optional shadow */
+      margin-top: 10px;
+    }
+
+    .my-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: inline-block;
+      padding: 10px 20px;
+      background: grey;
+      color: whitesmoke;
+      border-radius: 100px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s ease, transform 0.3s ease;
+      font-size: 14px;
+      z-index: 10;
+    }
+
+    .my-btn:hover {
+      background: #ddd;
+      color: black;
+      transform: scale(1.05);
+    }
+
+    .card{
+      width: 100%;
+      max-width: var(--max-w);
+      background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(250,250,252,1) 100%);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow);
+      padding: 28px;
+      box-sizing: border-box;
+      border: 1px solid rgba(15,23,42,0.04);
+    }
+
+    .card-header{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .badge{
+      display:inline-grid;
+      place-items:center;
+      width:44px;
+      height:44px;
+      border-radius:10px;
+      background: linear-gradient(135deg,var(--accent),#7c3aed);
+      color: white;
+      font-weight: 700;
+      font-size: 18px;
+      box-shadow: 0 6px 18px rgba(37,99,235,0.18);
+    }
+
+    .title{
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.1;
+      letter-spacing: -0.2px;
+    }
+
+    .subtitle{
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+        .card-content{
+      margin-top: 22px;
+      display: block;
+    }
+
+    .card-content h2{
+      margin: 0 0 12px 0;
+      font-size: 18px;
+    }
+
+    .card-content p{
+      margin: 0 0 20px 0;
+      line-height: 1.65;
+      font-size: 16px;
+      color: #111827;
+    }
+
+  .card-content img,
+  .card-content video {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  .card-content iframe {
+    display: block;
+    margin: 0 auto;
+  }
+
+   .center-video-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 40px auto;
+    text-align: center;
+    max-width: 900px;
+  }
+
+  .center-video-section video {
+    width: 100%;
+    max-width: 600px;  /* 👈 change this to make video wider/narrower */
+    height: 750px;     /* 👈 change this to crop more/less vertically */
+    object-fit: cover; /* crops instead of squeezing */
+    object-position: center center; /* keeps crop centered vertically */
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  }
+
+  .center-video-section .caption {
+    margin-top: 12px;
+    font-size: 1.5rem;
+    color: #444;
+    line-height: 1.4;
+    max-width: 700px;
+  }
 
 
-<nav class="navbar navbar-expand-sm navbar-dark" style=" color: #EEE7E8;">
-  <div style="align-items: center; justify-content: center;" class="container-fluid">
-    <div class="flexrow">
-      <h2 class="nav-title">PS70 Fall 2024</h2>
-    </div>
-    <div class="navbar-nav">
-      <h4><a class="nav-link" href="../index.html">Home</a></h4>
-      <h4><a class="nav-link" href="../about.html">About</a></h4>
-    </div>
-  </div>
-</nav>
+</style>
+
+    /* responsive */
+    @media (max-width:560px){
+      .card{ padding:20px; }
+      .badge{ width:40px; height:40px; font-size:16px; }
+      .title{ font-size:18px; }
+    }
+
+
+  </style>
+</head>
 
 <body>
-<xmp style="display:none;">
-<div class="textcontainer">
-<p class="margin">   </p>
+  <div>
+    <a href="../index.html" class="my-btn">Return Home</a>
+  </div>
 
-<h3>Week 8: CNC Milling</h3>
+  <div class="hero">
+    <div class="hero-text fade-in-text" id="welcome-text">
+      <h2>Week 8: CNC</h2>
+    </div>
+  </div>
 
-<h4>Assignment: Make Something With CNC</h4>
+  <script>
+    window.addEventListener("load", function() {
+      document.getElementById("welcome-text").classList.add("active");
+    });
+  </script>
 
-</div>
-</xmp>
+ <div class="page-wrap">
+    <article class="card" role="article" aria-labelledby="assignment-title">
+      <header class="card-header">
+        <div class="badge">#1</div>
+        <div>
+          <h1 id="assignment-title" class="title">Use the CNC to make something.</h1>
+          <p class="subtitle">ShopBot Table Router.</p>
+        </div>
+      </header>
+
+      <section class="card-content">
+        <h2>Fusion 360 Design</h2>
+        <p style="margin-top: 20px">For this project, I decided I wanted to make a customized table for my dorm room using the ShopBot router. I wanted to make a top table design with the Harvard logo, my suite number, and my class year. The idea would be that this design would be held within a frame but could be flipped around (to reveal the flat bottom) so that the table could still be usable. I also wanted to make a pocket cut with the intials of everyone who lives in my suite on one of the table legs. I started off by making renderings in Fusion 360.
+        </p>
+
+         <div class="image-row">
+          <img src="cnc1.png" alt="Box 1">
+          <img src="cnc2.png" alt="Box 2">
+          <img src="cnc3.png" alt="Box 3">
+        </div>
+
+        <h2>CNC Router</h2>
+        <p>
+         Initially, my pass depth was extremely low (~0.01 mm) so my first design took many hours to cut out. I had just used the pass depth settings that were set by the last person. Rookie mistake. I had never used a CNC before and thought this was normal. After doing some research, I realized that the pass depth could be set to 1/2 the width of the end mill. After changing my pass depth, the cutting went much more smoothly. 
+        </p>
+
+        <div class="image-row">
+          <img src="cnc4.png" alt="Box 1">
+          <img src="tableface.png" alt="Box 2">
+        </div>
+
+        <p>
+          Above are my initial design (LEFT) and my second iteration (RIGHT) with a higher pass depth. The cut depth on the second design is much larger. As you can see, some of the features on my Fusion 360 rendering were too small to cut out so I will continue iterating. My thought is instead of writing out "Class of 2027," I will opt for the shorter, "'27."
+        </p>
+
+    </section>
+    </article>
+  </div>
+
+  <div class="page-wrap">
+    <article class="card" role="article" aria-labelledby="assignment-title">
+      <header class="card-header">
+        <div class="badge">#2</div>
+        <div>
+          <h1 id="assignment-title" class="title">Experiment with molding and casting.</h1>
+          <p class="subtitle">Spikey bouncy ball.</p>
+        </div>
+      </header>
+
+      <section class="card-content">
+        <h2>3D Printed Mold</h2>
+        <p style="margin-top: 20px">I decided to cast a spikey bouncy ball out of silicon. After experimenting with the Roland CNC, I realized that it would be much easier to get the features I needed with a 3D printed mold rather than a CNC mold out of wax. I made the following two-part mold in Fusion 360. 
+        </p>
+
+         <div class="image-row">
+          <img src="mold1.png" alt="Box 1">
+          <img src="mold2.png" alt="Box 2">
+        </div>
+
+        <h2>Casting out of Silicone</h2>
+        <p>
+         I used a clamp to securely attach both parts of the mold together and then poured silicon through a hole I made in the top of one of the molds. I left the silicon to cure overnight and pulled it out of the mold in the morning. Next time, I would use a little bit of vegetable oil to grease the mold and make it easier to extract my silicon piece. Overall, I'm happy with how the spikey ball turned out! And it bounces! 
+        </p>
+
+        <div class="image-row">
+          <img src="spikey.png" alt="Box 1">
+        </div>
+    </section>
+    </article>
+  </div>
+
+
 </body>
-
-<script src="../strapdown.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
-
 </html>

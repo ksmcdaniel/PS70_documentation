@@ -8,7 +8,11 @@
     /* Hero section */
     .hero {
       height: 50vh;
+<<<<<<< HEAD
       background: url('background.png') no-repeat center center/cover;
+=======
+      background: url('fp1.jpg') no-repeat center center/cover;
+>>>>>>> 1820e08 (Update folders)
       position: relative;
       display: flex;
       align-items: center;
@@ -177,7 +181,7 @@
     margin: 0 auto;
   }
 
-   .center-video-section {
+  .center-video-section {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -205,15 +209,16 @@
     max-width: 700px;
   }
 
-
-</style>
-
-    /* responsive */
+   /* responsive */
     @media (max-width:560px){
       .card{ padding:20px; }
       .badge{ width:40px; height:40px; font-size:16px; }
       .title{ font-size:18px; }
     }
+
+</style>
+
+   
 
 
   </style>
@@ -226,7 +231,7 @@
 
   <div class="hero">
     <div class="hero-text fade-in-text" id="welcome-text">
-      <h2>Minimum Viable Product</h2>
+      <h2>Week 12: Final Project</h2>
     </div>
   </div>
 
@@ -240,73 +245,69 @@
     <article class="card" role="article" aria-labelledby="assignment-title">
       <header class="card-header">
         <div class="badge">#1</div>
+        
         <div>
-          <h1 id="assignment-title" class="title">Minimum Viable Slap Robot.</h1>
-          <p class="subtitle">Get all of the different parts of the project working.</p>
+          <h1 id="assignment-title" class="title">Integrated Project</h1>
+          <p class="subtitle">Implementing a homing system and presetting stopping points for the robotic slider.</p>
         </div>
       </header>
 
-      <section class="card-content">
-        <h2>Project description</h2>
-        <p style="margin-top: 20px">During freshman and sophomore year, whenever I felt like taking a cheat day, my roommate was always there to shame me about it. One time, he even slapped a HUDS brownie out of my hands… Now he’s taking a gap semester and I have nobody to stop me from testing the limits of human dessert consumption. So my plan is to replace my roommate with a robot. </p>
-
-        <p style="margin-top: 20px">I will lay out a variety of healthy (baby carrots, peas, yuck, etc.) and unhealthy (reeses, Hershey’s kisses, Haribo gummy bears) snacks in different trays. The trays will have pressure sensors beneath them so that the dispenser can tell which snack I picked up. There will be a robotic arm on the dispenser that can slap the unhealthy snacks out of my hand. If I pick up a healthy snack, the robotic arm won’t do anything. The robotic arm will need to be on a horizontal track so that it can move back and forth so it is ready to slap me if I choose unwisely. Depending on which snack I pick up, an LCD screen will display a mean or kind message. </p>
-
-       <p style="margin-top: 20px; margin-bottom: 20px">I could also integrate a speaker/buzzer to play shameful sound effects when I pick up bad snacks. And LED strip could glow green for healthy and red for unhealthy.</p>
-
-        <div style="text-align: center;">
-         <img src="../Snacks.jpg" style="width:600px; height: 400px">
-        </div>
-
         <p>
-          I started with the trickiest part of the project first: sliding the arm back and forth with a stepper motor. I had a lot of difficulty wiring the stepper motor correctly, but was glad that I started on this because it took a lot more time than expected. I then worked on the ultrasonic sensor components. 
+         For this assignment, my goals were to update my robotic slider, build a reliable homing system, and allow the slider to stop accurately at predefined positions. I first revamped my slider system by CADing a larger sliding piece so I could mount a larger servo on it. I also rebuilt one of my slider mounts so that it could more securely mount my NEMA17 and could be adjusted to fit the breadboard I was using.   
         </p>
 
-        <h2>Stepper Motor</h2>
-        <p>
-         I noticed the stepper motor kept locking up and skipping steps, which would cause it to randomly start spinning the other direction. Part of this problem was fixed by increasing my power supply from 9V to 12V but I will need to keep iterating in the coming weeks. I will focus on making the slider move back and forth well. 
-        </p>
-
-        <h2>Ultrasonic Sensor</h2>
-        <p>
-          This part of the project went relatively smoothly. I was able to draw off of my work from electronic inputs week (week 6) to integrate the ultrasonic sensor. I will add three more sensors in the future to form a sensor array. Below is a picture of my oscilloscope reading from the trigger pin of my microcontroller. 
-          <div style="text-align: center;">
-         <img src="mvp4.png" style="width:600px; height: 400px">
+        <div class="image-row">
+          <img src="fp2.png" alt="New slider piece.">
+          <img src="fp4.png" alt="New slider mount.">
+          <img src="fp5.png" alt="Rendering of 3D printed parts.">
         </div>
 
+
+        <h2>Homing System</h2>
+        <p>
+          Having just finished machine building week, the homing system with a limit switch was easy to implement, though I spent some time trying to get the circuit correct. I initially had the voltage on my limit switch pin floating even though I tried to use an input_pulldown pin. I then altered the circuit to directly ground the voltage on the pin and that seemed to work much better. The limit switch was attached to the side of the robot to keep a low profile. 
         </p>
 
-        <h2>Final Product</h2>
-        <p>
-          Here are pictures of my slider setup, the bins to hold snacks, and the ultrasonic sensor setup. 
-         <div class="image-row">
-          <img src="mvp1.png" alt="Box 1">
-          <img src="mvp2.png" alt="Box 2">
-          <img src="mvp3.png" alt="Box 3">
-        </div>
-      </p>
-
-
-      <div class="center-video-section">
-        <video src="video1.mov" autoplay muted loop playsinline></video>
-        <div class="caption">The slider in motion.</div>
-      </div>
-
-      <div class="center-video-section">
-        <video src="video3.mov" autoplay muted loop playsinline></video>
-        <div class="caption">The slider in motion again.</div>
+        <div class="center-video-section">
+        <video src="fp1.mov" autoplay muted loop playsinline></video>
+        <div class="caption">The homing system using a limit switch.</div>
       </div>
 
 
+        <h2>Re-integrating with the Ultrasonic Sensors</h2>
+        <p>
+          Once I had homing working, I re-integrated the ultrasonic sensing function into the robotic slider. This worked more smoothly than with my MVP now that I had more experience with C++ class structure. The trick was to create bool logic that stopped the ultrasonic sensor from taking measurements when the robotic slider was moving. Otherwise, the rapid measurement taking would cause the stepper motor to stall. 
+        </p>
+
+        <div class="center-video-section">
+        <video src="fp2.mov" autoplay muted loop playsinline></video>
+        <div class="caption">The robotic slider responding to input from my hand.</div>
+        </div>
 
 
+        <h2>Remote Control via Web Server</h2>
+        <p>
+          Once I had homing working, I moved on to building a web server to control my robot and have it move to specific points along the x axis of the slider. I built a simple web server using an example sketch on ArduinoIDE, specified a home position, and preset four points for the slider to move to. These preset points would represent the different trays of snacks. 
+        </p>
+
+        <img src="fp6.png" alt="Simple web server.">
 
 
+        <div class="center-video-section">
+        <video src="fp4.mov" autoplay muted loop playsinline></video>
+        <div class="caption">Controlling the robotic slider remotely via a web server.</div>
+        </div>
 
-    </section>
-    </article>
-  </div>
+         <h2>Remote Control via Joystick</h2>
+        <p>
+          For fun, I decided to see if I could control the robotic slider with an analog joystick I found in the lab. I used ESP-NOW to communicate between two ESP32s, one connected to the joystick and another running my stepper motor. At first, the stepper motor would stall because it was recieving constant input from the joystick. I had to run a smoothing function on ArduinoIDE, with some help from the internet, to get the stepper to stop locking up. I used AccelStepper to keep the movement smooth, though this introduced some lag in the robotic slider's response to my joystick input, especially when changing directions. 
+        </p>
 
+
+        <div class="center-video-section">
+        <video src="fp5.mov" autoplay muted loop playsinline></video>
+        <div class="caption">Controlling the robotic slider remotely using an analog joystick.</div>
+        </div>
 
 </body>
 </html>

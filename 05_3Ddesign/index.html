@@ -1,38 +1,345 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Week 2: 2D Design & Cutting</title>
 
-<title>PS70: Intro to Digital Fabrication </title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="../style.css" rel="stylesheet">
+  <style>
+    /* Hero section */
+    .hero {
+      height: 50vh;
+      background: url('3dprint.jpeg') no-repeat center center/cover;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .hero-text {
+      position: relative;
+      z-index: 1;
+      font-size: 3rem;
+      text-shadow: 0 0 10px rgba(0,0,0,0.7);
+    }
+
+    .fade-in-text { opacity: 0; transition: opacity 1s ease-in-out; }
+    .fade-in-text.active { opacity: 1; }
 
 
-<nav class="navbar navbar-expand-sm navbar-dark" style=" color: #EEE7E8;">
-  <div style="align-items: center; justify-content: center;" class="container-fluid">
-    <div class="flexrow">
-      <h2 class="nav-title">PS70 Fall 2024</h2>
-    </div>
-    <div class="navbar-nav">
-      <h4><a class="nav-link" href="../index.html">Home</a></h4>
-      <h4><a class="nav-link" href="../about.html">About</a></h4>
-    </div>
-  </div>
-</nav>
+      .image-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px; /* space between images */
+      flex-wrap: wrap; /* allows wrapping on small screens */
+    }
+
+    .image-row img {
+      width: 400px;  /* set consistent size */
+      height: 300px; /* adjust to your desired ratio */
+      object-fit: cover; /* ensures images keep proportions and fill box */
+      border-radius: 10px; /* optional rounded corners */
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2); /* optional shadow */
+      margin-top: 10px;
+    }
+
+    .my-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: inline-block;
+      padding: 10px 20px;
+      background: grey;
+      color: whitesmoke;
+      border-radius: 100px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s ease, transform 0.3s ease;
+      font-size: 14px;
+      z-index: 10;
+    }
+
+    .my-btn:hover {
+      background: #ddd;
+      color: black;
+      transform: scale(1.05);
+    }
+
+    /* Card grid */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+      padding: 10px;
+
+      max-width: 1200px;  /* or however wide you want the grid */
+      margin: 40px auto;  /* centers it horizontally and adds vertical spacing */
+      justify-items: center; /* centers the cards in their grid cells */
+    }
+
+    .card {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: 350px; /* force all cards to same height */
+      width: 400px;
+    }
+
+    .card img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border-radius: 20px;
+      object-fit: cover; 
+    }
+
+    .center-video-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 40px auto;
+    text-align: center;
+    max-width: 900px;
+  }
+
+  .center-video-section video {
+    width: 100%;
+    max-width: 600px;  /* 👈 change this to make video wider/narrower */
+    height: 750px;     /* 👈 change this to crop more/less vertically */
+    object-fit: cover; /* crops instead of squeezing */
+    object-position: center center; /* keeps crop centered vertically */
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  }
+
+  .center-video-section .caption {
+    margin-top: 12px;
+    font-size: 1.5rem;
+    color: #444;
+    line-height: 1.4;
+    max-width: 700px;
+  }
+
+
+  .card-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.6); /* semi-transparent background */
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    text-align: center;
+    opacity: 0;                /* hidden by default */
+    transition: opacity 0.3s ease;
+  }
+
+  .card:hover .card-caption {
+    opacity: 1;                /* fade in on hover */
+  }
+
+  .text-block {
+  max-width: 900px;        /* limits line width for readability */
+  margin: 40px auto;       /* centers text horizontally with top/bottom spacing */
+  font-weight: normal;     /* removes bold from h2 */
+  line-height: 1.6;        /* improves readability */
+  font-size: 1.3rem;       /* adjust as needed */
+  text-align: left;        /* keep it aligned or change to 'justify' if you prefer */
+  }
+
+    .text-block h1 {
+    margin-bottom: 0px; /* 👈 smaller space below the heading */
+    margin-top: 0;       /* optional: removes any top gap */
+    text-align: center;  /* optional: keeps it centered if you want */
+  }
+
+   .video-row {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin: 32px auto;
+    max-width: 1000px;
+    padding: 0 16px;
+  }
+
+  .video-card {
+    flex: 1 1 400px;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* VIDEO CROPPING SETTINGS */
+  .video-container {
+    width: 100%;
+    height: 500px;          /* 👈 CHANGE THIS to adjust visible height (e.g. 200px, 300px, etc.) */
+    overflow: hidden;       /* hides top/bottom overflow for vertical crop */
+    border-radius: 12px;
+    background: #000;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .video-container video {
+    width: 100%;
+    height: auto;
+    object-fit: cover;      /* zooms/crops instead of squishing */
+    object-position: center;/* keeps center of video visible */
+  }
+
+  .video-card figcaption {
+    margin-top: 8px;
+    font-size: 1.5rem;
+    color: #333;
+    text-align: center;
+    max-width: 420px;
+    line-height: 1.4;
+  }
+
+    .center-image-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 60px auto;
+    text-align: center;
+    max-width: 700px; /* controls overall width */
+  }
+
+  .center-image-section img {
+    width: 100%;
+    max-width: 600px;  /* 👈 adjust this to make image larger or smaller */
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  }
+
+  .center-image-section .caption {
+    margin-top: 12px;
+    font-size: 1.5rem;
+    color: #444;
+    line-height: 1.4;
+    max-width: 700px;
+  }
+  
+  </style>
+</head>
 
 <body>
-<xmp style="display:none;">
-<div class="textcontainer">
-<p class="margin">   </p>
+  <div>
+    <a href="../index.html" class="my-btn">Return Home</a>
+  </div>
 
-<h3>Week 5: 3D Design & Printing</h3>
+  <div class="hero">
+    <div class="hero-text fade-in-text" id="welcome-text">
+      <h2>Week 5: 3D Printing & Scanning</h2>
+    </div>
+  </div>
 
-<h4>Assignment: Model and 3D print something</h4>
+  <script>
+    window.addEventListener("load", function() {
+      document.getElementById("welcome-text").classList.add("active");
+    });
+  </script>
 
-
+ <div class="text-block">
+  <h2>
+    My challenge for this week was to make a combination lock with CAD. I have always been interested in locking mechanisms and decided to put my Fusion 360 skills to the test this week. I looked up different locking mechanisms and settled on the combination lock as one that would be easy to model in CAD. I made sure to use lots of parameters in case I needed to change anything later on – which proved to be a good decision (phew!). 
+  </h2>
 </div>
-</xmp>
+
+  <div class="card-grid">
+    <div class="card">
+      <img src="CAD.png" alt="cardboard planetary gear system">
+      <div class="card-caption">A CAD rendering of my combination lock system.</div>
+    </div>
+    <div class="card">
+      <img src="BE.png" alt="testing wooden gears">
+      <div class="card-caption">A bird's eye view of the system.</div>
+    </div>
+    <div class="card">
+      <img src="drawing.png" alt="adding in a clock hand">
+      <div class="card-caption">Hand-drawn schematics.</div>
+    </div>
+  </div>
+
+<div class="text-block">
+  <h4>
+    I learned a lot about gear modulus and gear ratios in the planetary gear system.
+    My first iteration of the clock used cardboard gears.
+    I initially designed the gear sizes so there would be a 12:1 reduction in speed between my minutes and hours hands
+    (to create a working clock). I quickly realized that this was pushing the limits of what was possible,
+    since there was very little clearance between my planet gears.
+    I decided to go with smaller planetary gears and a larger sun gear as seen in the image above.
+    Of course, this means that the clock is no longer accurate, but we can pretend it measures dog years or something like that.
+  </h4>
+</div>
+
+
+<div class="video-row">
+  <figure class="video-card">
+    <div class="video-container">
+      <video muted autoplay loop playsinline preload="metadata" aria-label="Demo video 1">
+        <source src="pgwood copy.mov" type="video/mp4">
+        <source src="movie1.webm" type="video/webm">
+        Your browser does not support the video element.
+      </video>
+    </div>
+    <figcaption>Intial design with wooden gears. I needed to drive the motor quite hard to overcome the friction between gears.</figcaption>
+  </figure>
+
+  <figure class="video-card">
+    <div class="video-container">
+      <video muted autoplay loop playsinline preload="metadata" aria-label="Demo video 2">
+        <source src="pg3 copy.mov" type="video/mp4">
+        <source src="movie2.webm" type="video/webm">
+        Your browser does not support the video element.
+      </video>
+    </div>
+    <figcaption>Adding in a cardboard clock hand, I was able to make the clock alternate directions using a potentiometer setup.</figcaption>
+  </figure>
+</div>
+
+<div class="text-block">
+  <h4>
+    I opted for an open clock back to reduce the friction between the gears and the back face. This allowed me to drive the motor a lot slower without the gears locking up. I also decided it was time to make cosmetic edits like laser cutting a holder for the clock and making the hands look more elegant. Now that we were in 3D printing week, I also printed a new axle for the center of the clock and spacers to lift the clock hands above the bolts that bind the clock together. My final product is shown below. 
+  </h4>
+</div>
+
+<div class="text-block">
+  <h1>
+    Final product:
+  </h1>
+</div>
+
+  <div class="center-image-section">
+  <img src="finalproduct copy.png" alt="Final product.">
+  <div class="caption">The final product — my completed planetary gear clock mechanism.</div>
+</div>
+
+<div class="center-video-section">
+  <video src="pgfinal copy.mov" autoplay muted loop playsinline></video>
+  <div class="caption">The completed planetary gear clock in motion.</div>
+</div>
+
 </body>
-
-<script src="../strapdown.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
-
 </html>

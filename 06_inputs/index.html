@@ -1,39 +1,353 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Week 2: 2D Design & Cutting</title>
 
-<title>PS70: Intro to Digital Fabrication </title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="../style.css" rel="stylesheet">
+  <style>
+    /* Hero section */
+    .hero {
+      height: 50vh;
+      background: url('ultrasonic.webp') no-repeat center center/cover;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .hero-text {
+      position: relative;
+      z-index: 1;
+      font-size: 3rem;
+      text-shadow: 0 0 10px rgba(0,0,0,0.7);
+    }
+
+    .fade-in-text { opacity: 0; transition: opacity 1s ease-in-out; }
+    .fade-in-text.active { opacity: 1; }
+
+     :root{
+      --card-bg: #ffffff;
+      --page-bg: #f3f4f6;
+      --accent: #2563eb;
+      --muted: #6b7280;
+      --shadow: 0 6px 22px rgba(15, 23, 42, 0.12);
+      --rounded: 12px;
+      --max-w: 900px;
+    }
+
+    html,body{
+      height: 100%;
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: var(--page-bg);
+      color: #0f172a;
+      -webkit-font-smoothing:antialiased;
+    }
+
+    .page-wrap{
+      min-height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 20px;
+      box-sizing: border-box;
+    }
+
+      .image-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px; /* space between images */
+      flex-wrap: wrap; /* allows wrapping on small screens */
+    }
+
+    .image-row img {
+      width: 400px;  /* set consistent size */
+      height: 300px; /* adjust to your desired ratio */
+      object-fit: cover; /* ensures images keep proportions and fill box */
+      border-radius: 10px; /* optional rounded corners */
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2); /* optional shadow */
+      margin-top: 10px;
+    }
+
+    .my-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: inline-block;
+      padding: 10px 20px;
+      background: grey;
+      color: whitesmoke;
+      border-radius: 100px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s ease, transform 0.3s ease;
+      font-size: 14px;
+      z-index: 10;
+    }
+
+    .my-btn:hover {
+      background: #ddd;
+      color: black;
+      transform: scale(1.05);
+    }
+
+    .card{
+      width: 100%;
+      max-width: var(--max-w);
+      background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(250,250,252,1) 100%);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow);
+      padding: 28px;
+      box-sizing: border-box;
+      border: 1px solid rgba(15,23,42,0.04);
+    }
+
+    .card-header{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .badge{
+      display:inline-grid;
+      place-items:center;
+      width:44px;
+      height:44px;
+      border-radius:10px;
+      background: linear-gradient(135deg,var(--accent),#7c3aed);
+      color: white;
+      font-weight: 700;
+      font-size: 18px;
+      box-shadow: 0 6px 18px rgba(37,99,235,0.18);
+    }
+
+    .title{
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.1;
+      letter-spacing: -0.2px;
+    }
+
+    .subtitle{
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+        .card-content{
+      margin-top: 22px;
+      display: block;
+    }
+
+    .card-content h2{
+      margin: 0 0 12px 0;
+      font-size: 18px;
+    }
+
+    .card-content p{
+      margin: 0 0 20px 0;
+      line-height: 1.65;
+      font-size: 16px;
+      color: #111827;
+    }
+
+  .card-content img,
+  .card-content video {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  .card-content iframe {
+    display: block;
+    margin: 0 auto;
+  }
+
+</style>
+
+    /* responsive */
+    @media (max-width:560px){
+      .card{ padding:20px; }
+      .badge{ width:40px; height:40px; font-size:16px; }
+      .title{ font-size:18px; }
+    }
 
 
-<nav class="navbar navbar-expand-sm navbar-dark" style=" color: #EEE7E8;">
-  <div style="align-items: center; justify-content: center;" class="container-fluid">
-    <div class="flexrow">
-      <h2 class="nav-title">PS70 Fall 2024</h2>
-    </div>
-    <div class="navbar-nav">
-      <h4><a class="nav-link" href="../index.html">Home</a></h4>
-      <h4><a class="nav-link" href="../about.html">About</a></h4>
-    </div>
-  </div>
-</nav>
+  </style>
+</head>
 
 <body>
-<xmp style="display:none;">
-<div class="textcontainer">
-<p class="margin">   </p>
+  <div>
+    <a href="../index.html" class="my-btn">Return Home</a>
+  </div>
 
-<h3>Week 6: Electronic Inputs</h3>
+  <div class="hero">
+    <div class="hero-text fade-in-text" id="welcome-text">
+      <h2>Week 6: Sensors and Input Devices</h2>
+    </div>
+  </div>
 
-<h4>Assignment 1: Capactive Sensor<h4>
+  <script>
+    window.addEventListener("load", function() {
+      document.getElementById("welcome-text").classList.add("active");
+    });
+  </script>
 
-<h4>Assignment 2: [Use + Calibrate Another Sensor]</h4>
+ <div class="page-wrap">
+    <article class="card" role="article" aria-labelledby="assignment-title">
+      <header class="card-header">
+        <div class="badge">#1</div>
+        <div>
+          <h1 id="assignment-title" class="title">Assignment 1: Make a Capacitive Sensor.</h1>
+          <p class="subtitle">Building and calibrating a windspeed sensor</p>
+        </div>
+      </header>
 
-</div>
-</xmp>
+      <section class="card-content">
+        <h2>Project description</h2>
+        <p>
+          For this assignment, my team and I were tasked with making a capacitive sensor that could detect wind speed. We decided to build a capacitor with one terminal attached to a flexible piece of carboard that could be blown to angle closer or farther from a stationary terminal. 
+        </p>
+
+
+        <h2>Sensor Idea</h2>
+        <p>
+          We decided to make a wind speed sensor using a piece of creased, flexible cardboard with a tin foil rectangle on either side of the crease. As wind speed picked up, the two tin foil rectangles would get blown closer together and capacitance could be measured. Of course, the calibration would not be linear because the distance traveled by the tin foil rectangles does not change linearly with the angle between the two cardboard flaps. 
+        </p>
+
+        <img src="image1.png" height="500" width="400" style="border: 5px solid black;" alt="Wind speed sensor">
+
+
+        <h2>Data Collection</h2>
+        <p>
+          Once we established proof of concept (by blowing on it lol), I decided to shift to a more standardized approach. I used a fan that came in my arduino kit and wrote code to pulse width modulate the fan speed. I then calibrated the sensor by mapping different PWM signals to different capacitances on the sensor. 
+        </p>
+
+        <div style="text-align: center;">
+         <img src="graph2.png" height="500" width="400" style="border: 5px solid black;" alt="CAD model of the box">
+        </div>
+  </div>
+
+ <div class="page-wrap">
+      <article class="card" role="article" aria-labelledby="assignment-title">
+      <header class="card-header">
+        <div class="badge">#2</div>
+        <div>
+          <h1 id="assignment-title" class="title">Assignment 2: Build your own sensor.</h1>
+          <p class="subtitle">Using an ultrasonic sensor and a piezo buzzer.</p>
+        </div>
+      </header>
+
+      <section class="card-content">
+        <h2>C++ Class Structure</h2>
+        <p>
+          I reviewed the w3schools site on C++ class structure and it was really helpful in solidifying what I learned in class about C++ class structure. I made a DistanceSensor class that takes a trig pin and an echo pin and returns a distance. I then wrote code to map this distance onto different frequencies (from 20Hz to 20kHz) that were sent to a piezo buzzer. That way, I could reach the pitch off of a web app and then calibrate the sensor to different distances. This sensor setup emulates the automatic distance alarm on some cars when they are backing up. 
+        </p>
+
+ <h2>Arduino IDE Code</h2>
+        <pre><code>
+unsigned long previousMillis = 0; 
+const long interval = 500; // shorter interval for smoother updates
+
+class DistanceSensor {
+  public:
+    int trigPin; 
+    int echoPin; 
+    float duration, distance;
+
+    DistanceSensor(int trig, int echo) {
+      trigPin = trig;
+      echoPin = echo;
+    }
+
+    void begin() {
+      pinMode(trigPin, OUTPUT);  
+      pinMode(echoPin, INPUT);  
+      Serial.begin(9600);  
+    }
+
+    void measure() {
+      unsigned long currentMillis = millis(); 
+      if (currentMillis - previousMillis >= interval) {
+        previousMillis = currentMillis; // update timer
+
+        // Send trigger pulse
+        digitalWrite(trigPin, LOW);  
+        delayMicroseconds(2);  
+        digitalWrite(trigPin, HIGH);  
+        delayMicroseconds(10);  
+        digitalWrite(trigPin, LOW);  
+
+        // Read echo
+        duration = pulseIn(echoPin, HIGH);  
+        distance = (duration * 0.0343) / 2;  
+
+        Serial.print("Distance: ");  
+        Serial.println(distance);
+      }
+    }
+};
+
+// Create sensor object with trig = 26, echo = 27
+DistanceSensor sensor(26, 27);
+
+int piezoPin = 32;
+
+int thresh1 = 5;
+int thresh2 = 10;
+int thresh3 = 15;
+int thresh4 = 20; 
+int thresh5 = 25; 
+int thresh6 = 30; 
+
+void setup() {
+  sensor.begin();
+  pinMode(piezoPin, OUTPUT);
+}
+int frequency; 
+
+void loop() {
+  sensor.measure();
+  float distance = sensor.distance; // update distance each loop
+
+  frequency = map(distance, 0, 999, 20, 20000);
+  tone(piezoPin, frequency); 
+}
+
+      </code></pre>
+
+        <video width="640" height="360" controls>
+        <source src="sensortest.mov" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+
+      <h2>Sensor Calibration</h2>
+        <p>
+          I used OnlineMicTest, a free pitch detector, to calibrate my sensor to different distances using a flat sheet of cardboard as my object to measure. Since my mapping was linear between distance and pitch, I did expect to see a linear graph. Both the pitch detector app and the piezo had lots of variability and the measurement would fluctuate quite a bit. 
+        </p>
+
+        <img src="sensortable.png" alt="Box 1">
+        <img src="graph.png" alt="Box 1">
+        <img src="schematic.png" alt="Box 1">
+
+        <p>
+          The ultrasonic sensor setup requires a trig pin (output) to send a pulse and an echo pin (input) to measure the pulse. The distance is then calculated from the time (in microseconds) elapsed between ouput and input using the following formula: distance = (duration * 0.0343)/2. The 0.0343 term is the speed of light in centimeters per microsecond and the value is divided by 2 because sound had to  travel both to the object and back. 
+        </p>
+
+
 </body>
-
-<script src="../strapdown.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
-
 </html>
